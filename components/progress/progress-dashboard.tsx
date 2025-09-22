@@ -58,10 +58,77 @@ export default function ProgressDashboard({ userId }: ProgressDashboardProps) {
   const supabase = createClient()
 
   useEffect(() => {
-    fetchProgressData()
-  }, [])
+    const fetchProgressData = async () => {
+      try {
+        setIsLoading(true)
+        setError(null)
 
-  const fetchProgressData = async () => {
+        // Fetch quiz sessions
+        const { data: sessions, error: sessionsError } = await supabase
+          .from("quiz_sessions")
+          .select("*")
+          .eq("user_id", userId)
+          .not("completed_at", "is", null)
+          .order("completed_at", { ascending: false })
+
+        if (sessionsError) throw sessionsError
+
+        // Fetch user progress for category analysis
+        const { data: userProgress, error: progressError } = await supabase
+          .from("user_progress")
+          .select(`
+            *,
+            questions (
+              category,
+              correct_answer
+            )
+          `)
+          .eq("user_id", userId)
+
+        if (progressError) throw progressError
+
+        // Calculate statistics
+        const totalQuizzes = sessions?.length || 0
+        const totalQuestions = sessions?.reduce((sum, session) => sum + session.total_questions, 0) || 0
+        const correctAnswers = sessions?.reduce((sum, session) => sum + session.correct_answers, 0) || 0
+        const averageScore =
+          totalQuizzes > 0 ? sessions.reduce((sum, session) => sum + session.score_percentage, 0) / totalQuizzes : 0
+        const bestScore = totalQuizzes > 0 ? Math.max(...sessions.map((s) => s.score_percentage)) : 0
+
+        // Calculate category statistics
+        const categoryStats = calculateCategoryStats(userProgress || [])
+
+        // Calculate weekly progress
+        const weeklyProgress = calculateWeeklyProgress(sessions || [])
+
+        // Calculate streaks (simplified - would need more complex logic for actual streaks)
+        const currentStreak = calculateCurrentStreak(sessions || [])
+        const longestStreak = calculateLongestStreak(sessions || [])
+
+        setProgressData({
+          totalQuizzes,
+          totalQuestions,
+          correctAnswers,
+          averageScore: Math.round(averageScore),
+          bestScore: Math.round(bestScore),
+          currentStreak,
+          longestStreak,
+          categoryStats,
+          recentSessions: sessions?.slice(0, 5) || [],
+          weeklyProgress,
+        })
+      } catch (err) {
+        console.error("Error fetching progress data:", err)
+        setError(err instanceof Error ? err.message : "Failed to load progress data")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchProgressData()
+  }, [userId, supabase])
+
+  const refetchProgressData = async () => {
     try {
       setIsLoading(true)
       setError(null)
@@ -232,7 +299,7 @@ export default function ProgressDashboard({ userId }: ProgressDashboardProps) {
             </div>
             <h2 className="text-2xl font-bold text-slate-800 mb-2">Error Loading Progress</h2>
             <p className="text-slate-600 mb-6">{error}</p>
-            <Button onClick={fetchProgressData} className="bg-emerald-600 hover:bg-emerald-700">
+            <Button onClick={refetchProgressData} className="bg-emerald-600 hover:bg-emerald-700">
               Try Again
             </Button>
           </CardContent>

@@ -1,195 +1,252 @@
-# 🚀 AI Dev Tasks 🤖
+# FrenchQuest 🇫🇷
 
-Welcome to **AI Dev Tasks**! This repository provides a collection of markdown files designed to supercharge your feature development workflow with AI-powered IDEs and CLIs. Originally built for [Cursor](https://cursor.sh/), these tools work with any AI coding assistant including Claude Code, Windsurf, and others. By leveraging these structured prompts, you can systematically approach building features, from ideation to implementation, with built-in checkpoints for verification.
+A modern, interactive French language learning application designed for A1-level beginners. Master French vocabulary through engaging multiple-choice quizzes with comprehensive progress tracking and gamification features.
 
-Stop wrestling with monolithic AI requests and start guiding your AI collaborator step-by-step!
+![FrenchQuest](https://img.shields.io/badge/Level-A1%20French-emerald?style=for-the-badge)
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![Supabase](https://img.shields.io/badge/Supabase-Database-green?style=for-the-badge&logo=supabase)
 
-## ✨ The Core Idea
+## ✨ Features
 
-Building complex features with AI can sometimes feel like a black box. This workflow aims to bring structure, clarity, and control to the process by:
+### 🎯 Interactive Learning
+- **Multiple-choice quizzes** with A1-level French vocabulary
+- **Real-time feedback** with immediate answer validation
+- **Streak tracking** to encourage consistent learning
+- **Gamification elements** including celebration animations
 
-1. **Defining Scope:** Clearly outlining what needs to be built with a Product Requirement Document (PRD).
-2. **Detailed Planning:** Breaking down the PRD into a granular, actionable task list.
-3. **Iterative Implementation:** Guiding the AI to tackle one task at a time, allowing you to review and approve each change.
+### 📊 Progress Tracking
+- **Comprehensive dashboard** with detailed analytics
+- **Category-based performance** tracking (greetings, politeness, etc.)
+- **Weekly progress charts** showing learning trends
+- **Personal statistics** including accuracy rates and best scores
+- **Session history** with detailed quiz results
 
-This structured approach helps ensure the AI stays on track, makes it easier to debug issues, and gives you confidence in the generated code.
+### 🔐 User Management
+- **Secure authentication** powered by Supabase Auth
+- **User profiles** with personalized progress data
+- **Row-level security** ensuring data privacy
+- **Session management** with automatic login persistence
 
-## Workflow: From Idea to Implemented Feature 💡➡️💻
+### 🎨 Modern UI/UX
+- **Responsive design** optimized for all devices
+- **Beautiful animations** and micro-interactions
+- **Accessible interface** following WCAG guidelines
+- **Dark/light mode** support (coming soon)
 
-Here's the step-by-step process using the `.md` files in this repository:
+## 🚀 Quick Start
 
-### 1️⃣ Create a Product Requirement Document (PRD)
+### Prerequisites
 
-First, lay out the blueprint for your feature. A PRD clarifies what you're building, for whom, and why.
+- Node.js 18+ 
+- pnpm (recommended) or npm
+- Supabase account
 
-You can create a lightweight PRD directly within your AI tool of choice:
+### Installation
 
-1. Ensure you have the `create-prd.md` file from this repository accessible.
-2. In your AI tool, initiate PRD creation:
+1. **Clone the repository**
+   \`\`\`bash
+   git clone https://github.com/yourusername/frenchquest.git
+   cd frenchquest
+   \`\`\`
 
-    ```text
-    Use @create-prd.md
-    Here's the feature I want to build: [Describe your feature in detail]
-    Reference these files to help you: [Optional: @file1.py @file2.ts]
-    ```
-    *(Pro Tip: For Cursor users, MAX mode is recommended for complex PRDs if your budget allows for more comprehensive generation.)*
+2. **Install dependencies**
+   \`\`\`bash
+   pnpm install
+   \`\`\`
 
-    ![Example of initiating PRD creation](https://pbs.twimg.com/media/Go6DDlyX0AAS7JE?format=jpg&name=large)
+3. **Set up environment variables**
+   \`\`\`bash
+   cp .env.example .env.local
+   \`\`\`
+   
+   Fill in your Supabase credentials:
+   \`\`\`env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+   NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000
+   \`\`\`
 
-### 2️⃣ Generate Your Task List from the PRD
+4. **Set up the database**
+   
+   Run the SQL scripts in order in your Supabase SQL editor:
+   \`\`\`bash
+   # In Supabase SQL Editor, run these files in order:
+   scripts/001_create_questions_table.sql
+   scripts/002_create_user_progress_table.sql
+   scripts/003_create_quiz_sessions_table.sql
+   \`\`\`
 
-With your PRD drafted (e.g., `MyFeature-PRD.md`), the next step is to generate a detailed, step-by-step implementation plan for your AI Developer.
+5. **Start the development server**
+   \`\`\`bash
+   pnpm dev
+   \`\`\`
 
-1. Ensure you have `generate-tasks.md` accessible.
-2. In your AI tool, use the PRD to create tasks:
+6. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-    ```text
-    Now take @MyFeature-PRD.md and create tasks using @generate-tasks.md
-    ```
-    *(Note: Replace `@MyFeature-PRD.md` with the actual filename of the PRD you generated in step 1.)*
+## 🏗️ Project Structure
 
-    ![Example of generating tasks from PRD](https://pbs.twimg.com/media/Go6FITbWkAA-RCT?format=jpg&name=medium)
+\`\`\`
+frenchquest/
+├── app/                          # Next.js App Router
+│   ├── auth/                     # Authentication pages
+│   ├── quiz/                     # Quiz interface
+│   ├── progress/                 # Progress dashboard
+│   ├── layout.tsx                # Root layout
+│   └── page.tsx                  # Homepage
+├── components/                   # React components
+│   ├── auth/                     # Authentication components
+│   ├── quiz/                     # Quiz-related components
+│   ├── progress/                 # Progress tracking components
+│   └── ui/                       # Reusable UI components
+├── lib/                          # Utility libraries
+│   ├── supabase/                 # Supabase client configuration
+│   ├── constants.ts              # App constants
+│   ├── types.ts                  # TypeScript type definitions
+│   └── utils.ts                  # Utility functions
+├── scripts/                      # Database migration scripts
+├── utils/                        # Helper functions
+└── hooks/                        # Custom React hooks
+\`\`\`
 
-### 3️⃣ Examine Your Task List
+## 🗄️ Database Schema
 
-You'll now have a well-structured task list, often with tasks and sub-tasks, ready for the AI to start working on. This provides a clear roadmap for implementation.
+### Tables
 
-![Example of a generated task list](https://pbs.twimg.com/media/Go6GNuOWsAEcSDm?format=jpg&name=medium)
+#### `questions`
+Stores French vocabulary questions with multiple-choice options.
+- `id` (UUID) - Primary key
+- `french_word` (TEXT) - The French word/phrase
+- `english_translation` (TEXT) - English translation
+- `options` (TEXT[]) - Array of 4 multiple choice options
+- `correct_answer` (TEXT) - The correct English translation
+- `difficulty_level` (TEXT) - Difficulty level (A1, A2, etc.)
+- `category` (TEXT) - Category (greetings, politeness, etc.)
 
-### 4️⃣ Instruct the AI to Work Through Tasks (and Mark Completion)
+#### `user_progress`
+Tracks individual question attempts by users.
+- `id` (UUID) - Primary key
+- `user_id` (UUID) - Reference to auth.users
+- `question_id` (UUID) - Reference to questions table
+- `selected_answer` (TEXT) - User's selected answer
+- `is_correct` (BOOLEAN) - Whether the answer was correct
+- `session_id` (UUID) - Groups answers by quiz session
 
-To ensure methodical progress and allow for verification, we'll use `process-task-list.md`. This command instructs the AI to focus on one task at a time and wait for your go-ahead before moving to the next.
+#### `quiz_sessions`
+Groups questions into quiz sessions and tracks overall performance.
+- `id` (UUID) - Primary key
+- `user_id` (UUID) - Reference to auth.users
+- `total_questions` (INTEGER) - Number of questions in session
+- `correct_answers` (INTEGER) - Number of correct answers
+- `score_percentage` (DECIMAL) - Calculated score percentage
+- `started_at` / `completed_at` (TIMESTAMP) - Session timing
 
-1. Create or ensure you have the `process-task-list.md` file accessible.
-2. In your AI tool, tell the AI to start with the first task (e.g., `1.1`):
+## 🎮 How to Use
 
-    ```text
-    Please start on task 1.1 and use @process-task-list.md
-    ```
-    *(Important: You only need to reference `@process-task-list.md` for the *first* task. The instructions within it guide the AI for subsequent tasks.)*
+### Taking a Quiz
+1. **Sign up** or **log in** to your account
+2. Click **"Start Learning"** or **"Take Quiz"**
+3. Answer multiple-choice questions about French vocabulary
+4. Get **immediate feedback** on each answer
+5. Complete the quiz to see your **detailed results**
 
-    The AI will attempt the task and then prompt you to review.
+### Tracking Progress
+1. Navigate to the **Progress** page
+2. View your **overall statistics** and **performance metrics**
+3. Analyze your **category-specific** performance
+4. Review your **recent quiz sessions**
+5. Monitor your **weekly learning trends**
 
-    ![Example of starting on a task with process-task-list.md](https://pbs.twimg.com/media/Go6I41KWcAAAlHc?format=jpg&name=medium)
+### Categories Available
+- **Greetings** - Basic French greetings and farewells
+- **Politeness** - Please, thank you, excuse me, etc.
+- **Numbers** - Basic counting and numbers
+- **Colors** - Common color vocabulary
+- **Family** - Family member terms
+- *More categories coming soon!*
 
-### 5️⃣ Review, Approve, and Progress ✅
+## 🛠️ Technology Stack
 
-As the AI completes each task, you review the changes.
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI Components**: shadcn/ui
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Deployment**: Vercel
+- **Package Manager**: pnpm
 
-* If the changes are good, simply reply with "yes" (or a similar affirmative) to instruct the AI to mark the task complete and move to the next one.
-* If changes are needed, provide feedback to the AI to correct the current task before moving on.
+## 🔧 Configuration
 
-You'll see a satisfying list of completed items grow, providing a clear visual of your feature coming to life!
+### Quiz Settings
+Customize quiz behavior in `lib/constants.ts`:
+\`\`\`typescript
+export const QUIZ_CONFIG = {
+  QUESTIONS_PER_SESSION: 5,
+  STREAK_CELEBRATION_THRESHOLD: 3,
+  PASSING_SCORE_PERCENTAGE: 70,
+}
+\`\`\`
 
-![Example of a progressing task list with completed items](https://pbs.twimg.com/media/Go6KrXZWkAA_UuX?format=jpg&name=medium)
+### Supabase Configuration
+Row Level Security (RLS) policies ensure:
+- Users can only access their own progress data
+- Questions are read-only for authenticated users
+- Secure data isolation between users
 
-While it's not always perfect, this method has proven to be a very reliable way to build out larger features with AI assistance.
+## 🚀 Deployment
 
-### Video Demonstration 🎥
+### Deploy to Vercel
 
-If you'd like to see this in action, I demonstrated it on [Claire Vo's "How I AI" podcast](https://www.youtube.com/watch?v=fD4ktSkNCw4).
+1. **Connect your repository** to Vercel
+2. **Set environment variables** in Vercel dashboard
+3. **Deploy** - Vercel will automatically build and deploy
 
-![Demonstration of AI Dev Tasks on How I AI Podcast](https://img.youtube.com/vi/fD4ktSkNCw4/maxresdefault.jpg)
-
-## 🗂️ Files in this Repository
-
-* **`create-prd.md`**: Guides the AI in generating a Product Requirement Document for your feature.
-* **`generate-tasks.md`**: Takes a PRD markdown file as input and helps the AI break it down into a detailed, step-by-step implementation task list.
-* **`process-task-list.md`**: Instructs the AI on how to process the generated task list, tackling one task at a time and waiting for your approval before proceeding. (This file also contains logic for the AI to mark tasks as complete).
-
-## 🌟 Benefits
-
-* **Structured Development:** Enforces a clear process from idea to code.
-* **Step-by-Step Verification:** Allows you to review and approve AI-generated code at each small step, ensuring quality and control.
-* **Manages Complexity:** Breaks down large features into smaller, digestible tasks for the AI, reducing the chance of it getting lost or generating overly complex, incorrect code.
-* **Improved Reliability:** Offers a more dependable approach to leveraging AI for significant development work compared to single, large prompts.
-* **Clear Progress Tracking:** Provides a visual representation of completed tasks, making it easy to see how much has been done and what's next.
-
-## 🛠️ How to Use
-
-1. **Clone or Download:** Get these `.md` files into your project or a central location where your AI tool can access them.
-   ```bash
-   git clone https://github.com/snarktank/ai-dev-tasks.git
-   ```
-2. **Follow the Workflow:** Systematically use the `.md` files in your AI assistant as described in the workflow above.
-3. **Adapt and Iterate:**
-    * Feel free to modify the prompts within the `.md` files to better suit your specific needs or coding style.
-    * If the AI struggles with a task, try rephrasing your initial feature description or breaking down tasks even further.
-
-## Tool-Specific Instructions
-
-### Cursor
-
-Cursor users can follow the workflow described above, using the `.md` files directly in the Agent chat:
-
-1. Ensure you have the files from this repository accessible
-2. In Cursor's Agent chat, reference files with `@` (e.g., `@create-prd.md`)
-3. Follow the 5-step workflow as outlined above
-4. **MAX Mode for PRDs:** Using MAX mode in Cursor for PRD creation can yield more thorough results if your budget supports it
-
-### Claude Code
-
-To use these tools with Claude Code:
-
-1. **Copy files to your repo**: Copy the three `.md` files to a subdirectory in your project (e.g., `/ai-dev-tasks`)
-
-2. **Reference in CLAUDE.md**: Add these lines to your project's `./CLAUDE.md` file:
-   ```
-   # AI Dev Tasks
-   Use these files when I request structured feature development using PRDs:
-   /ai-dev-tasks/create-prd.md
-   /ai-dev-tasks/generate-tasks.md
-   /ai-dev-tasks/process-task-list.md
-   ```
-
-3. **Create custom commands** (optional): For easier access, create these files in `.claude/commands/`:
-   - `.claude/commands/create-prd.md` with content:
-     ```
-     Please use the structured workflow in /ai-dev-tasks/create-prd.md to help me create a PRD for a new feature.
-     ```
-   - `.claude/commands/generate-tasks.md` with content:
-     ```
-     Please generate tasks from the PRD using /ai-dev-tasks/generate-tasks.md
-     If not explicitly told which PRD to use, generate a list of PRDs and ask the user to select one under `/tasks` or create a new one using `create-prd.md`:
-     - assume it's stored under `/tasks` and has a filename starting with `prd-` (e.g., `prd-[name].md`)
-     - it should not already have a corresponding task list in `/tasks` (e.g., `tasks-prd-[name].md`)
-     - **always** ask the user to confirm the PRD file name before proceeding
-     Make sure to provide options in number lists so I can respond easily (if multiple options).
-     ```
-   - `.claude/commands/process-task-list.md` with content:
-     ```
-     Please process the task list using /ai-dev-tasks/process-task-list.md
-     ```
-
-   Make sure to restart Claude Code after adding these files (`/exit`).
-   Then use commands like `/create-prd` to quickly start the workflow.
-   Note: This setup can also be adopted for a global level across all your projects, please refer to the Claude Code documentation [here](https://docs.anthropic.com/en/docs/claude-code/memory) and [here](https://docs.anthropic.com/en/docs/claude-code/common-workflows#create-personal-slash-commands).
-
-### Other Tools
-
-For other AI-powered IDEs or CLIs:
-
-1. Copy the `.md` files to your project
-2. Reference them according to your tool's documentation
-3. Follow the same workflow principles
-
-## 💡 Tips for Success
-
-* **Be Specific:** The more context and clear instructions you provide (both in your initial feature description and any clarifications), the better the AI's output will be.
-* **Use a Capable Model:** The free version of Cursor currently uses less capable AI models that often struggle to follow the structured instructions in this workflow. For best results, consider upgrading to the Pro plan to ensure consistent, accurate task execution.
-* **MAX Mode for PRDs:** As mentioned, using MAX mode in Cursor for PRD creation (`create-prd.mdc`) can yield more thorough and higher-quality results if your budget supports it.
-* **Correct File Tagging:** Always ensure you're accurately tagging the PRD filename (e.g., `@MyFeature-PRD.md`) when generating tasks.
-* **Patience and Iteration:** AI is a powerful tool, but it's not magic. Be prepared to guide, correct, and iterate. This workflow is designed to make that iteration process smoother.
+### Environment Variables for Production
+\`\`\`env
+NEXT_PUBLIC_SUPABASE_URL=your_production_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_production_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_production_service_role_key
+\`\`\`
 
 ## 🤝 Contributing
 
-Got ideas to improve these `.md` files or have new ones that fit this workflow? Contributions are welcome!
+We welcome contributions! Please follow these steps:
 
-Please feel free to:
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
 
-* Open an issue to discuss changes or suggest new features.
-* Submit a pull request with your enhancements.
+### Development Guidelines
+- Follow TypeScript best practices
+- Use Prettier for code formatting
+- Write meaningful commit messages
+- Test your changes thoroughly
+- Update documentation as needed
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Supabase** for the excellent backend-as-a-service platform
+- **Vercel** for seamless deployment and hosting
+- **shadcn/ui** for beautiful, accessible UI components
+- **Tailwind CSS** for utility-first styling
+- The **French language learning community** for inspiration
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/frenchquest/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/frenchquest/discussions)
+- **Email**: maxcharlesdev@gmail.com
 
 ---
 
-Happy AI-assisted developing!
+**Happy Learning! Bonne chance! 🇫🇷✨**

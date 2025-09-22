@@ -63,15 +63,6 @@ export default function ProgressDashboard({ userId }: ProgressDashboardProps) {
         setIsLoading(true)
         setError(null)
 
-        // Check if user is authenticated first
-        const {
-          data: { user },
-          error: authError,
-        } = await supabase.auth.getUser()
-        if (authError || !user) {
-          throw new Error("Authentication required")
-        }
-
         // Fetch quiz sessions
         const { data: sessions, error: sessionsError } = await supabase
           .from("quiz_sessions")
@@ -141,15 +132,6 @@ export default function ProgressDashboard({ userId }: ProgressDashboardProps) {
     try {
       setIsLoading(true)
       setError(null)
-
-      // Check if user is authenticated first
-      const {
-        data: { user },
-        error: authError,
-      } = await supabase.auth.getUser()
-      if (authError || !user) {
-        throw new Error("Authentication required")
-      }
 
       // Fetch quiz sessions
       const { data: sessions, error: sessionsError } = await supabase

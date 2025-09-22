@@ -208,8 +208,8 @@ export default function QuizCard({
                   {feedbackMessage}
                 </p>
                 <p className={`text-sm mt-1 ${isCorrectAnswer ? "text-emerald-700" : "text-red-700"}`}>
-                  <span className="font-medium">"{question.french_word}"</span> means{" "}
-                  <span className="font-medium">"{question.correct_answer}"</span> in English.
+                  <span className="font-medium">&quot;{question.french_word}&quot;</span> means{" "}
+                  <span className="font-medium">&quot;{question.correct_answer}&quot;</span> in English.
                 </p>
                 {!isCorrectAnswer && (
                   <p className="text-red-600 text-xs mt-2 italic">

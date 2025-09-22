@@ -21,7 +21,7 @@ export default function StreakCelebration({ streak, onClose }: StreakCelebration
           <div className="text-6xl mb-4 animate-pulse">🔥</div>
           <h2 className="text-3xl font-bold text-orange-800 mb-2">Amazing Streak!</h2>
           <p className="text-xl text-orange-700 mb-4">{streak} correct answers in a row!</p>
-          <p className="text-orange-600">You're on fire! Keep it up!</p>
+          <p className="text-orange-600">You&apos;re on fire! Keep it up!</p>
         </CardContent>
       </Card>
     </div>

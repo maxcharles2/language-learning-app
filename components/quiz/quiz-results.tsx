@@ -107,7 +107,7 @@ export default function QuizResults({ answers, questions, sessionId, onRestart, 
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <p className="font-semibold text-slate-800">
-                      {index + 1}. What does "{question.french_word}" mean?
+                      {index + 1}. What does &quot;{question.french_word}&quot; mean?
                     </p>
                     <p className="text-sm text-slate-600 mt-1">
                       Your answer: <span className="font-medium">{answer?.selectedAnswer || "No answer"}</span>
